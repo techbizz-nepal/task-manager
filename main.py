@@ -1,40 +1,56 @@
-from json_data_source import JsonDataSource
-from project import Project
-from task import Task
-
-""" 
+"""
 Get named arguments from terminal
     example: --task
         
 """
+from project.controller import ProjectController
+from project.service import ProjectService
 
 
 def main():
-    json_data_source_options = JsonDataSource.JsonDataSourceOptions()
-    task_options = Task.TaskOptions()
-    project_options = Project.ProjectOptions()
+    menu_options = [
+        {"choice": 0, "label": "Get Projects"},
+        {"choice": 1, "label": "Create Project"},
+        {"choice": 2, "label": "Exit"}
+    ]
 
-    json_data_source_options.schema_file_path = "schema.json"
-    json_data_source_options.file_to_read = "data.json"
-    json_data_source_options.file_to_write = "data.json"
+    while True:
+        print("Menu:")
+        for option in menu_options:
+            print(f"{option['choice']}: {option['label']}")
 
-    task_options.title = "Task 1"
-    task_options.description = None
-    task_options.status = False
+        choice = input("Enter your choice: ")
 
-    task_one = Task(task_options)
+        selected_option = next((option for option in menu_options if option["choice"] == int(choice)), None)
+        if selected_option is not None:
+            if selected_option["choice"] == 0:
+                get_projects()
+                break
+            elif selected_option["choice"] == 1:
+                create()
+                break
+            elif selected_option["choice"] == 2:
+                print("Exiting the program.")
+                break
+            else:
+                print("Invalid choice. Please try again.")
 
-    project_options.name = "POC"
-    project_options.tasks = [task_one]
 
-    project_one = Project(project_options)
+def get_projects():
+    project_controller = ProjectController()
+    response = project_controller.get_projects()
+    print(response)
 
-    json_data_source = JsonDataSource(json_data_source_options)
-    json_to_persist = {
-        "projects": [project_one.to_json()]
-    }
-    # json_data_source.persist(json_to_persist)
-    print(project_one.to_json())
+
+def create():
+    project_options = ProjectService.Options()
+    project_options.name = input("Enter the project name: ")
+    project_options.description = input("Enter the project description: ")
+
+    response = ProjectController().create_project(project_options)
+
+    if response:
+        print("Successfully created: {}".format(project_options.name))
 
 
 if __name__ == "__main__":

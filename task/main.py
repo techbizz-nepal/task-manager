@@ -1,4 +1,5 @@
 import json
+import random
 
 
 class Task:
@@ -9,6 +10,7 @@ class Task:
             self.status = None
 
     def __init__(self, options):
+        self.id = random.Random
         self.title = options.title or ""
         self.description = options.description or ""
         self.status = options.status or False
@@ -20,3 +22,11 @@ class Task:
             "status": self.status
         }
         return json.dumps(task_dict)
+
+
+def main():
+    print("hello from task")
+
+
+if __name__ == "__main__":
+    main()
