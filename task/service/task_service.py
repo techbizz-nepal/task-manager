@@ -7,53 +7,59 @@ from datetime import date
 from jsonschema import validate
 
 
-class ProjectService:
+class TaskService:
     class Options:
         def __init__(self):
-            self.name = None
+            self.project_id = None
+            self.title = None
             self.description = None
+            self.status = False
 
     def __init__(self):
         self.id = str(uuid.uuid4())
+        self.project_id = None
+        self.title = None
         self.description = None
-        self.name = None
+        self.status = False
         self.created_at = None
         self.updated_at = None
-        self.schema_file_path = os.path.join(os.path.dirname(__file__), "../project_schema.json")
-        self.data_file = os.path.join(os.path.dirname(__file__), "../project_data.json")
+        self.schema_file_path = os.path.join(os.path.dirname(__file__), "../task_schema.json")
+        self.data_file = os.path.join(os.path.dirname(__file__), "../task_data.json")
         self.schema = self._load_schema()
 
-    def get_projects(self):
+    def get(self):
         try:
             with open(self.data_file, 'r') as file:
                 return json.load(file)
         except Exception as e:
             print(f"Error: An unexpected error occurred while persisting the JSON data: {str(e)}")
 
-    def find_by_id(self, project_id: str):
-        projects = self.get_projects().get("projects", [])
-        return next((project for project in projects if project.get('id') == project_id), None)
-
-    def get_by_id(self, project_id: str):
-        projects = self.get_projects().get("projects", [])
-        return [project for project in projects if project.get('id') == project_id]
-
-    def create_project(self, data: Options):
-        self.name = data.name
+    def create_task(self, data: Options):
+        self.title = data.title
+        self.project_id = data.project_id
         self.description = data.description
+        self.status = data.status
         self.created_at = date.today()
-        existing_data = self.get_projects()
-        new_project = self._to_dict()
+
+        existing_data = self.get()
+        new_task = self._to_dict()
         # Clone the existing object if it exists
         new_data = copy.deepcopy(existing_data) if existing_data is not None else {}
 
         if "projects" in new_data:
-            new_data["projects"].append(new_project)
+            new_data["tasks"].append(new_task)
         else:
-            new_data["projects"] = [new_project]
+            new_data["tasks"] = [new_task]
+
         if not self._persist(new_data):
             raise Exception("Sorry data not persisted")
         return True
+
+    def update_task(self, data: Options):
+        self.title = data.title
+        self.description = data.description
+        self.status = data.status
+        self.updated_at = date.today()
 
     def _persist(self, data):
         print("from persist {}".format(str(data)))
@@ -69,7 +75,7 @@ class ProjectService:
     def _to_dict(self):
         return {
             "id": self.id,
-            "name": self.name,
+            "title": self.title,
             "description": self.description,
             "created_at": self.created_at,
             "updated_at": self.updated_at

@@ -1,5 +1,16 @@
 # Usage
+
+### Start virtual environment
 ```commandline
-python main.py --add-task
-python main.py --add-project
+source venv/bin/activate
+```
+
+### Install packages
+```commandline
+pip install -r requirements.txt
+```
+
+### Run Script
+```commandline
+python main.py
 ```

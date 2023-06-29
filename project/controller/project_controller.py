@@ -6,7 +6,13 @@ class ProjectController:
         self.project_service = ProjectService()
 
     def get_projects(self):
-        return self.project_service.get()
+        return self.project_service.get_projects()
+
+    def find_by_id(self, project_id: str):
+        return self.project_service.find_by_id(project_id)
+
+    def get_by_id(self, project_id: str):
+        return self.project_service.get_by_id(project_id)
 
     def create_project(self, data: ProjectService.Options):
         try:
