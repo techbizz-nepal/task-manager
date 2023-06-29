@@ -10,15 +10,15 @@ from jsonschema import validate
 class ProjectService:
     class Options:
         def __init__(self):
-            self.name = None
-            self.description = None
+            self.name = ""
+            self.description = ""
 
     def __init__(self):
         self.id = str(uuid.uuid4())
-        self.description = None
-        self.name = None
-        self.created_at = None
-        self.updated_at = None
+        self.description = ""
+        self.name = ""
+        self.created_at = ""
+        self.updated_at = ""
         self.schema_file_path = os.path.join(os.path.dirname(__file__), "../project_schema.json")
         self.data_file = os.path.join(os.path.dirname(__file__), "../project_data.json")
         self.schema = self._load_schema()
@@ -41,7 +41,7 @@ class ProjectService:
     def create_project(self, data: Options):
         self.name = data.name
         self.description = data.description
-        self.created_at = date.today()
+        self.created_at = str(date.today())
         existing_data = self.get_projects()
         new_project = self._to_dict()
         # Clone the existing object if it exists

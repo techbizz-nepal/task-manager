@@ -1,14 +1,18 @@
 {
   "projects": [
     {
-      "id": "7f64b296-c1c6-474b-99de-f48b374056cc",
-      "name": "adsf",
-      "description": "asdf"
+      "id": "9a927514-9f99-4a2e-8ee5-b120d6a754ca",
+      "name": "sdfadsf",
+      "description": "adsfadf",
+      "created_at": "2023-06-30",
+      "updated_at": ""
     },
     {
-      "id": "7f64b296-c1c6-474b-99de-f48b374056cc",
-      "name": "new project",
-      "description": "new project description"
+      "id": "cddc636d-4545-4798-a608-2798ef4b2446",
+      "name": "adfadsf",
+      "description": "adfadsfadsf",
+      "created_at": "2023-06-30",
+      "updated_at": ""
     }
   ]
 }

@@ -10,19 +10,19 @@ from jsonschema import validate
 class TaskService:
     class Options:
         def __init__(self):
-            self.project_id = None
-            self.title = None
-            self.description = None
+            self.project_id = ""
+            self.title = ""
+            self.description = ""
             self.status = False
 
     def __init__(self):
         self.id = str(uuid.uuid4())
-        self.project_id = None
-        self.title = None
-        self.description = None
+        self.project_id = ""
+        self.title = ""
+        self.description = ""
         self.status = False
-        self.created_at = None
-        self.updated_at = None
+        self.created_at = ""
+        self.updated_at = ""
         self.schema_file_path = os.path.join(os.path.dirname(__file__), "../task_schema.json")
         self.data_file = os.path.join(os.path.dirname(__file__), "../task_data.json")
         self.schema = self._load_schema()
