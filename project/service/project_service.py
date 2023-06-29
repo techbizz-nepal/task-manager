@@ -30,6 +30,7 @@ class ProjectService:
     def create_project(self, data: Options):
         self.name = data.name
         self.description = data.description
+
         existing_data = self.get()
         new_project = self._to_dict()
         # Clone the existing object if it exists
@@ -39,6 +40,7 @@ class ProjectService:
             new_data["projects"].append(new_project)
         else:
             new_data["projects"] = [new_project]
+
         if not self._persist(new_data):
             raise Exception("Sorry data not persisted")
         return True
