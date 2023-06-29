@@ -39,7 +39,7 @@ class TaskService:
         self.project_id = data.project_id
         self.description = data.description
         self.status = data.status
-        self.created_at = date.today()
+        self.created_at = str(date.today())
 
         existing_data = self.get()
         new_task = self._to_dict()
@@ -59,7 +59,7 @@ class TaskService:
         self.title = data.title
         self.description = data.description
         self.status = data.status
-        self.updated_at = date.today()
+        self.updated_at = str(date.today())
 
     def _persist(self, data):
         print("from persist {}".format(str(data)))
