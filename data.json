@@ -1,0 +1,36 @@
+{
+  "projects": [
+    {
+      "name": "poc",
+      "description": "bootstrapping projects",
+      "tasks": [
+        {
+          "title": "task 1",
+          "description": "task 1 description",
+          "status": "done"
+        },
+        {
+          "title": "task 2",
+          "description": "task 2 description",
+          "status": "done"
+        }
+      ]
+    },
+    {
+      "name": "vesa",
+      "description": "",
+      "tasks": [
+        {
+          "title": "task 1",
+          "description": "task 1 description",
+          "status": "done"
+        },
+        {
+          "title": "task 2",
+          "description": "task 2 description",
+          "status": "done"
+        }
+      ]
+    }
+  ]
+}
